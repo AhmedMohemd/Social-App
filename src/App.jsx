@@ -4,7 +4,6 @@ import Layout from "./Component/Layout/Layout";
 import Home from "./Pages/Home/Home";
 import Login from "./Pages/Login/Login";
 import NotFound from "./Component/NotFound/NotFound";
-import Register from "./Pages/Register/register";
 import { Toaster } from "react-hot-toast";
 import PostsDetails from "./Pages/PostsDetails/PostsDetails";
 import { UserContextProvider } from "./Component/Context/UserContextProvider";
@@ -13,6 +12,7 @@ import Profile from "./Pages/Profile/Profile";
 import EditProfile from "./Pages/EditProfile/EditProfile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from './../node_modules/@tanstack/react-query-devtools/src/production';
+import Register from './Pages/Register/Register';
 export default function App() {
   let Rootes = createBrowserRouter([
     {
@@ -28,7 +28,7 @@ export default function App() {
           ),
         },
         { path: "Login", element: <Login /> },
-        { path: "Register", element: <Register /> },
+        { path: "Register", element: <Register/> },
         {
           path: "Profile",
           element: (
