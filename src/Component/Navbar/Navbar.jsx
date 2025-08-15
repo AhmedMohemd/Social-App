@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContextProvider";
+import { initFlowbite } from "flowbite";
 
 export default function Navbar() {
   let { user, setUser } = useContext(UserContext);
   let navgat = useNavigate();
-
+  useEffect(() => {
+    initFlowbite();
+  }, [user]);
   function Logout() {
     localStorage.removeItem("token");
     setUser(null);
@@ -51,102 +54,89 @@ export default function Navbar() {
           </button>
           <div className="hidden w-full md:block md:w-auto" id="navbar-default">
             <ul className="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              {/*                    =====================================                      */}
-
-              {/* <img
-                id="avatarButton"
-                type="button"
-                data-dropdown-toggle="userDropdown"
-                data-dropdown-placement="bottom-start"
-                class="w-10 h-10 rounded-full cursor-pointer"
-                src={user?.photo}
-                alt="User dropdown"
-              />
-
-              <div
-                id="userDropdown"
-                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600"
-              >
-                <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                  <div>Bonnie Green</div>
-                  <div class="font-medium truncate">name@flowbite.com</div>
-                </div>
-                <ul
-                  class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                  aria-labelledby="avatarButton"
-                >
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Dashboard
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Settings
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Earnings
-                    </a>
-                  </li>
-                </ul>
-                <div class="py-1">
-                  <a
-                    href="#"
-                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-                  >
-                    Sign out
-                  </a>
-                </div>
-              </div> */}
-
-              {/*                    =====================================                      */}
-
-              <li>
-                <div className="flex items-center gap-4">
-                  <img
-                    className="w-10 h-10 rounded-full"
-                    src={user?.photo}
-                    alt=""
-                  />
-                  <div className="font-medium dark:text-white flex items-center">
-                    <h2>Hi {user?.name}</h2>
-                    <i
-                      onClick={Logout}
-                      className="fa-solid fa-right-from-bracket ms-1.5"
-                    ></i>
+              {user ? (
+                <>
+                  <div className=" flex items-center gap-3">
+                    <img
+                      id="avatarButton"
+                      type="button"
+                      data-dropdown-toggle="userDropdown"
+                      data-dropdown-placement="bottom-start"
+                      className="w-10 h-10 rounded-full cursor-pointer"
+                      src={user?.photo}
+                      alt="User dropdown"
+                    />
+                    <div>
+                      {" "}
+                      Hi {user?.name}{" "}
+                      <i class="fa-solid fa-face-grin-hearts ms-1"></i>
+                    </div>
                   </div>
-                </div>
-              </li>
-              <li>
-                <NavLink
-                  to="/Profile"
-                  className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  Profile
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  to="/EditProfile"
-                  className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-                >
-                  EditProfile
-                </NavLink>
-              </li>
-
-              {/*                    =====================================                      */}
-              {/*                    =====================================                      */}
+                  <div
+                    id="userDropdown"
+                    className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600"
+                  >
+                    <ul
+                      className="py-2 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="avatarButton"
+                    >
+                      <li>
+                        <NavLink
+                          to="/"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Home <i class="fa-solid fa-house-user ms-1"></i>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/Profile"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Profile <i class="fa-solid fa-user ms-1"></i>
+                        </NavLink>
+                      </li>
+                      <li>
+                        <NavLink
+                          to="/EditProfile"
+                          className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                        >
+                          Edit Profile{" "}
+                          <i class="fa-solid fa-pen-to-square ms-1"></i>
+                        </NavLink>
+                      </li>
+                    </ul>
+                    <div className="py-1">
+                      <button
+                        onClick={Logout}
+                        className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+                      >
+                        Sign out{" "}
+                        <i class="fa-solid fa-right-from-bracket ms-1"></i>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <NavLink
+                      to="/Login"
+                      className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Login
+                    </NavLink>
+                  </li>
+                  <li>
+                    <NavLink
+                      to="/Register"
+                      className="block py-2 px-3 text-gray-900 rounded-sm hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                    >
+                      Register
+                    </NavLink>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>
