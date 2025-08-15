@@ -9,8 +9,9 @@ import CreatePost from "../../Component/CreatePost/CreatePost";
 import PostOptions from "../../Component/PostOptions/PostOptions";
 import { UserContext } from "../../Component/Context/UserContextProvider";
 import { useQuery } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 export default function Home() {
-  // let { user } = useContext(UserContext);
+  let { user } = useContext(UserContext);
 
   let { data, isError, isLoading, error } = useQuery({
     queryKey: ["posts"],
@@ -19,16 +20,13 @@ export default function Home() {
   let postsList = data?.data.posts;
   async function getAllPosts() {
     return await axios.get(
-      `https://linked-posts.routemisr.com/posts?limit=50&page=121`,
+      `https://linked-posts.routemisr.com/posts?limit=50&sort=-createdAt`,
       {
         headers: {
           token: localStorage.getItem("token"),
         },
       }
     );
-  }
-  if (isError) {
-    return <h2>{error?.response?.data?.message}</h2>;
   }
   return (
     <div className="w-3/4 mx-auto">
@@ -42,8 +40,8 @@ export default function Home() {
           createdAt,
           comments,
         } = post;
-        // let userPostId = post?.user._id;
-        // let userLoginId = user?._id;
+        let userPosIdt = post.user._id;
+        let userLoginId = user._id;
         return (
           <div key={_id} className="item my-5 bg-gray-100 rounded-3xl p-3">
             <div className="itemBody">
@@ -63,7 +61,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                <PostOptions postId={_id} />
+                {userPosIdt == userLoginId && <PostOptions postId={_id} />}
               </div>
 
               <p className="my-3">{body}</p>

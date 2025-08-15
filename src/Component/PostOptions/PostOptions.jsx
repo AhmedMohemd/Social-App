@@ -22,19 +22,19 @@ export default function PostOptions({ postId }) {
       toast.success("Post deleted");
     }
   }
-  async function handleUpdatePost(value) {
+  async function handleUpdatePost(object) {
     let formData = new FormData();
-    formData.append("body", value.body);
+    formData.append("body", object.body);
     formData.append("image", imgeFlie.current.files[0]);
 
     let { data } = await axios.put(
-      `https://linked-posts.routemisr.com/posts/${postId}}`,
+      `https://linked-posts.routemisr.com/posts/${postId}`,
       formData,
       {
         headers: { token: localStorage.getItem("token") },
       }
     );
-    if (data?.message === "success") {
+    if (data.message == "success") {
       toast.success("Post updated");
     } else toast.error("Failed to update post");
   }

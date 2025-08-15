@@ -2,6 +2,7 @@ import React, { useContext, useRef } from "react";
 import { UserContext } from "../Context/UserContextProvider";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function CreatePost() {
   let { user } = useContext(UserContext);
@@ -22,7 +23,12 @@ export default function CreatePost() {
       }
     );
     console.log(data);
-    
+    if (data?.message === "success") {
+      toast.success("Post created successfully");
+    }
+    else {
+      toast.error("Failed to create post");
+    }
   }
   return (
     <form
@@ -44,7 +50,6 @@ export default function CreatePost() {
             id="body"
             className=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             placeholder="body"
-            required
           />
         </div>
         <label htmlFor="chooseFile">
