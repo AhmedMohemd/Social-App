@@ -1,5 +1,5 @@
 import axios from "axios";
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 export let UserContext = createContext();
 
 export function UserContextProvider(props) {
@@ -16,7 +16,11 @@ export function UserContextProvider(props) {
       setUser(data.user);
     }
   }
-
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      getUserData();
+    }
+  }, []);
   return (
     <UserContext.Provider value={{ getUserData, user, setUser }}>
       {props.children}
