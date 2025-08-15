@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { UserContext } from "../Context/UserContextProvider";
 import { initFlowbite } from "flowbite";
+import imgLogo from "../../assets/logo.svg";
 
 export default function Navbar() {
   let { user, setUser } = useContext(UserContext);
@@ -23,8 +24,8 @@ export default function Navbar() {
             className="flex items-center space-x-3 rtl:space-x-reverse"
           >
             <img
-              src="https://flowbite.com/docs/images/logo.svg"
-              className="h-8"
+              src={imgLogo}
+              className="w-10 h-10 rounded-full"
               alt="Flowbite Logo"
             />
           </Link>

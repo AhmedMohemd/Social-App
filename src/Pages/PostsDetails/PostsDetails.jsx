@@ -1,17 +1,17 @@
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import imgPhoto from "../../assets/user-img.png";
 import { BeatLoader } from "react-spinners";
+import { useQuery } from "@tanstack/react-query";
 
 export default function PostsDetails() {
   let { id } = useParams();
-  let [post, setPost] = useState(null);
-  useEffect(() => {
-    getPostDetails();
-  }, []);
-  async function getPostDetails() {
-    let { data } = await axios.get(
+ let {data,isLoading} = useQuery({
+    queryKey: ["postDetails" + id],
+    queryFn: getPostDetails,
+ })
+   async function getPostDetails() {
+  return await axios.get(
       `https://linked-posts.routemisr.com/posts/${id}`,
       {
         headers: {
@@ -19,19 +19,20 @@ export default function PostsDetails() {
         },
       }
     );
-    setPost(data.post);
-    console.log(data);
+  
   }
-  if (!post) {
+  let post = data?.data.post;
+  if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
         <BeatLoader />
       </div>
     );
   }
+
   return (
     <div>
-      <div className="item my-5 bg-gray-100 rounded-3xl p-3">
+      <div className="item bg-gray-100 mx-auto w-3/4 rounded-3xl p-3">
         <div className="itemBody">
           <div className="flex items-center gap-4">
             <img

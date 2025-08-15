@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-export default function CreatePost() {
+export default function CreatePost({refetch}) {
   let { user } = useContext(UserContext);
   let { handleSubmit, register } = useForm();
   let imageInput = useRef();
@@ -25,10 +25,9 @@ export default function CreatePost() {
     console.log(data);
     if (data?.message === "success") {
       toast.success("Post created successfully");
+      refetch();
     }
-    else {
-      toast.error("Failed to create post");
-    }
+  
   }
   return (
     <form
@@ -36,7 +35,7 @@ export default function CreatePost() {
       className="mb-10 py-4 bg-gray-100 rounded-2xl p-3"
     >
       <h2>Post Something</h2>
-      <hr />
+      <hr  className="my-2"/>
       <div className=" flex items-center justify-between my-5 ">
         <img
           className="w-10 h-10 rounded-full"

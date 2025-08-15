@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, } from "react";
 
 import { Link } from "react-router-dom";
 import imgPhoto from "../../assets/react.svg";
@@ -9,11 +9,10 @@ import CreatePost from "../../Component/CreatePost/CreatePost";
 import PostOptions from "../../Component/PostOptions/PostOptions";
 import { UserContext } from "../../Component/Context/UserContextProvider";
 import { useQuery } from "@tanstack/react-query";
-import toast from "react-hot-toast";
 export default function Home() {
   let { user } = useContext(UserContext);
 
-  let { data, isError, isLoading, error } = useQuery({
+  let { data, isError,  error , refetch } = useQuery({
     queryKey: ["posts"],
     queryFn: getAllPosts,
   });
@@ -28,9 +27,20 @@ export default function Home() {
       }
     );
   }
+  if (isError) {
+    return (
+      <div className="w-3/4 mx-auto">
+        <h2 className="text-red-500 text-center mt-10">
+          {error?.response?.data?.error}
+        </h2>
+      </div>
+    );
+  }
+  // let arr = new Array(20)
+  // arr = arr.fill(0);
   return (
     <div className="w-3/4 mx-auto">
-      <CreatePost />
+      <CreatePost refetch={refetch} />
       {postsList?.map((post) => {
         let {
           _id,
@@ -41,7 +51,7 @@ export default function Home() {
           comments,
         } = post;
         let userPosIdt = post.user._id;
-        let userLoginId = user._id;
+        let userLoginId = user?._id;
         return (
           <div key={_id} className="item my-5 bg-gray-100 rounded-3xl p-3">
             <div className="itemBody">
@@ -61,7 +71,7 @@ export default function Home() {
                     </div>
                   </div>
                 </div>
-                {userPosIdt == userLoginId && <PostOptions postId={_id} />}
+                {userPosIdt == userLoginId && <PostOptions postId={_id} refetch={refetch} />}
               </div>
 
               <p className="my-3">{body}</p>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 
 export default function EditProfile() {
   let { handleSubmit, register } = useForm();
@@ -14,8 +15,12 @@ export default function EditProfile() {
         headers: { token: localStorage.getItem("token") },
       }
     );
-  console.log(data);
-  
+    if (data?.message === "success") {
+      toast.success("Profile updated successfully");
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 1000);
   }
 
   return (
@@ -49,7 +54,12 @@ export default function EditProfile() {
               SVG, PNG, JPG or GIF (MAX. 800x400px)
             </p>
           </div>
-          <input {...register('photo')} id="dropzone-file" type="file" className="hidden" />
+          <input
+            {...register("photo")}
+            id="dropzone-file"
+            type="file"
+            className="hidden"
+          />
         </label>
       </div>
       <button

@@ -4,7 +4,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useForm } from "react-hook-form";
 
-export default function PostOptions({ postId }) {
+export default function PostOptions({ postId ,refetch}) {
   useEffect(() => {
     initFlowbite();
   }, []);
@@ -20,7 +20,9 @@ export default function PostOptions({ postId }) {
     );
     if (data?.message === "success") {
       toast.success("Post deleted");
+      refetch();
     }
+   
   }
   async function handleUpdatePost(object) {
     let formData = new FormData();
@@ -35,8 +37,10 @@ export default function PostOptions({ postId }) {
       }
     );
     if (data.message == "success") {
-      toast.success("Post updated");
-    } else toast.error("Failed to update post");
+    toast.success("Post deleted");
+      refetch();
+    };
+
   }
 
   return (
