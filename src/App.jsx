@@ -11,8 +11,8 @@ import { GuradRouting } from "./Component/GuradRouting/GuradRouting";
 import Profile from "./Pages/Profile/Profile";
 import EditProfile from "./Pages/EditProfile/EditProfile";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from './../node_modules/@tanstack/react-query-devtools/src/production';
-import Register from './Pages/Register/Register';
+import { ReactQueryDevtools } from "./../node_modules/@tanstack/react-query-devtools/src/production";
+import Register from "./Pages/Register/Register";
 export default function App() {
   let Rootes = createBrowserRouter([
     {
@@ -28,7 +28,7 @@ export default function App() {
           ),
         },
         { path: "Login", element: <Login /> },
-        { path: "Register", element: <Register/> },
+        { path: "Register", element: <Register /> },
         {
           path: "Profile",
           element: (
@@ -65,7 +65,7 @@ export default function App() {
           <RouterProvider router={Rootes} />
           <Toaster />
         </UserContextProvider>
-        <ReactQueryDevtools/>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </div>
   );

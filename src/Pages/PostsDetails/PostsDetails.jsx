@@ -6,20 +6,16 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function PostsDetails() {
   let { id } = useParams();
- let {data,isLoading} = useQuery({
+  let { data, isLoading } = useQuery({
     queryKey: ["postDetails" + id],
     queryFn: getPostDetails,
- })
-   async function getPostDetails() {
-  return await axios.get(
-      `https://linked-posts.routemisr.com/posts/${id}`,
-      {
-        headers: {
-          token: localStorage.getItem("token"),
-        },
-      }
-    );
-  
+  });
+  async function getPostDetails() {
+    return await axios.get(`https://linked-posts.routemisr.com/posts/${id}`, {
+      headers: {
+        token: localStorage.getItem("token"),
+      },
+    });
   }
   let post = data?.data.post;
   if (isLoading) {
