@@ -42,7 +42,7 @@ export default function CreateComment({ postId, refetch }) {
 
         <div className="w-4/4 mx-3">
           <input
-            {...register("content", { required: true })}
+            {...register("content", { required: true  , maxLength: 300})}
             type="text"
             id="content"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"

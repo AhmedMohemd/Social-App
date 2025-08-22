@@ -50,7 +50,7 @@ export default function Home() {
         : postsList?.map((post) => {
             let {
               _id,
-              body, 
+              body,
               image,
               user: { name, photo },
               createdAt,
@@ -78,7 +78,7 @@ export default function Home() {
                       </div>
                     </div>
                     {userPosIdt == userLoginId && (
-                      <PostOptions comments={_id} refetch={refetch} />
+                     <PostOptions postId={_id} refetch={refetch} />
                     )}
                   </div>
 
@@ -97,8 +97,8 @@ export default function Home() {
                       sea post Details{" "}
                     </Link>
                   </div>
-                    <CreateComment/>
-                
+                  <CreateComment postId={_id} refetch={refetch} />
+
                   {/* ============================================================== */}
                   {comments.length > 0 && (
                     <div className=" bg-gray-300 mt-4  p-5 rounded-4xl">

@@ -55,11 +55,15 @@ export default function PostsDetails() {
           {/* ============================================================== */}
           {post.comments.map((comment) => {
             return (
-              <div className=" bg-gray-300 mt-4  p-5 rounded-4xl">
+        <div className=" bg-gray-300 mt-4  p-5 rounded-4xl">
                 <div className="avatarItem">
-                  <div class="flex items-center gap-4">
-                    <img class="w-10 h-10 rounded-full" src={imgPhoto} alt="" />
-                    <div class="font-medium dark:text-white">
+                  <div className="flex items-center gap-4">
+                    <img
+                      className="w-10 h-10 rounded-full"
+                      src={imgPhoto}
+                      alt=""
+                    />
+                    <div className="font-medium dark:text-white">
                       <div>{comment.commentCreator.name}</div>
                       <div className="text-sm text-gray-500 dark:text-gray-400">
                         {new Date(comment.createdAt).toLocaleDateString()} -{" "}

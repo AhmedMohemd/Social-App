@@ -7,6 +7,7 @@ import { UserContext } from "../../Component/Context/UserContextProvider";
 import PostOptions from "../../Component/PostOptions/PostOptions";
 import { Link } from "react-router-dom";
 import CreateComment from "../../Component/CreateComment/CreateComment";
+import CreatePost from "../../Component/CreatePost/CreatePost";
 
 export default function Profile() {
   let { user } = useContext(UserContext);
@@ -54,6 +55,7 @@ export default function Profile() {
           <p className="text-gray-600">{user?.email}</p>
         </div>
       </div>
+       <CreatePost refetch={refetch} />
       <h2 className="text-2xl font-bold mb-5">My Posts</h2>
       {postsList?.length === 0 ? (
         <p className="text-center">You dont created any posts yet</p>
